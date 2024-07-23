@@ -1,0 +1,44 @@
+.footer {
+  background: black;
+  color: white;
+  padding: 40px 0px;
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid white;
+
+    &__left,
+    &__right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding-bottom: 20px;
+
+      ul {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+    }
+  }
+  &__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__left,
+    &__right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding-top: 20px;
+
+      ul {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+    }
+  }
+}

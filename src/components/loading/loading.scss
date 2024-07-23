@@ -1,0 +1,10 @@
+.bg__animation {
+  background: linear-gradient(90deg, #eee, #ddd, #eee);
+  background-size: 200%;
+  animation: bgMove 1s linear 0s infinite;
+}
+@keyframes bgMove {
+  to {
+    background-position: 200%;
+  }
+}
