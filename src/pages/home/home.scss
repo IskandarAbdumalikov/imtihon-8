@@ -103,7 +103,7 @@
         position: absolute;
         top: 10px !important;
         left: 10px;
-        max-height: 50px;
+        max-height: 70px;
       }
     }
     &__card:nth-child(2) {
@@ -126,7 +126,6 @@
     align-items: center;
     gap: 40px;
     overflow-x: scroll;
-    max-width: 800px;
     li {
       padding: 5px 10px;
       border-radius: 10px;
@@ -134,7 +133,7 @@
       align-items: center;
       justify-content: center;
       text-wrap: nowrap;
-      background: rgb(184, 184, 184);
+      background: #f3f5f7;
       cursor: pointer;
     }
     .active-category {
@@ -291,8 +290,7 @@
   padding: 2rem;
   background-color: #f9f9f9;
   min-height: 400px;
-  background: url(../../assets/home/newsLatterRight.svg) no-repeat
-    center/cover;
+  background: url(../../assets/home/newsLatterRight.svg) no-repeat center/cover;
 
   &__left,
   &__right {

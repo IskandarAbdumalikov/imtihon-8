@@ -1,8 +1,9 @@
-import React from "react";
+import React, { lazy } from "react";
 import { Route, Routes } from "react-router-dom";
-import Home from "./pages/home/Home";
-import Layout from "./components/layout/Layout";
-import Admin from "./pages/admin/Admin";
+const Home = lazy(() => import("./pages/home/Home"));
+const Layout = lazy(() => import("./components/layout/Layout"));
+const Admin = lazy(() => import("./pages/admin/Admin"));
+const SinglePage = lazy(() => import("./pages/singlePage/SinglePage"));
 
 const App = () => {
   return (
@@ -10,6 +11,7 @@ const App = () => {
       <Route path="/admin" element={<Admin />} />
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
+        <Route path="/products/:productId" element={<SinglePage />} />
       </Route>
     </Routes>
   );

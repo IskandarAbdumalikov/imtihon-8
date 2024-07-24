@@ -1,16 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import star from "../../assets/products/star.svg";
 import halfStar from "../../assets/products/starHalf.svg";
 import starRegular from "../../assets/products/starRegular.svg";
-import { Link } from "react-router-dom";
-import shipping from "../../assets/products/shipping.svg";
-import secure from "../../assets/products/secure.svg";
-import phone from "../../assets/products/phone.svg";
-import money from "../../assets/products/money.svg";
+
 import "./products.scss";
 import Loading from "../loading/Loading";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { Link } from "react-router-dom";
 
-const Products = ({ data, isLoading, isFetching }) => {
+const Products = ({ data, isLoading, isFetching, setLimit, limit }) => {
   const getRating = (rating) => {
     let res = [];
     for (let i = 0; i < Math.trunc(rating); i++) {
@@ -28,13 +26,16 @@ const Products = ({ data, isLoading, isFetching }) => {
   return (
     <section className="products">
       <div className="products__card">
-        {isFetching && isFetching ? <Loading /> : <></>}
-        {data?.slice(0, 8)?.map((product) => (
+        {isLoading || isFetching ? <Loading /> : <></>}
+        {data?.map((product) => (
           <div className="product__card" key={product.id}>
-            <div className="product__card__image">
+            <Link
+              to={`/products/${product.id}`}
+              className="product__card__image"
+            >
               <button className="add-to-cart__btn">Add to cart</button>
               <img src={product?.images[0]} alt={product?.title} />
-            </div>
+            </Link>
             <div className="product__card__info">
               <div className="rating">{getRating(product?.rating)}</div>
               <p>{product?.title}</p>
@@ -46,27 +47,22 @@ const Products = ({ data, isLoading, isFetching }) => {
           </div>
         ))}
       </div>
-      <div className="products__bottom__cards">
-        <div className="products__bottom__card">
-          <img src={shipping} alt="" />
-          <h3>Free Shipping</h3>
-          <p>Order above $200</p>
-        </div>
-        <div className="products__bottom__card">
-          <img src={secure} alt="" />
-          <h3>Secure Payments</h3>
-          <p>30 days guarantee</p>
-        </div>
-        <div className="products__bottom__card">
-          <img src={phone} alt="" />
-          <h3>24/7 Support</h3>
-          <p>Secured by Stripe</p>
-        </div>
-        <div className="products__bottom__card">
-          <img src={money} alt="" />
-          <h3>Money-back</h3>
-          <p>Phone and Email support</p>
-        </div>
+      <div style={{ marginTop: 50 }} className="products__card__pagination">
+        <FormControl style={{ maxWidth: 200 }} fullWidth>
+          <InputLabel id="demo-simple-select-label">Limit</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={limit}
+            label="Limit"
+            onChange={(e) => setLimit(e.target.value)}
+          >
+            <MenuItem value={8}>8</MenuItem>
+            <MenuItem value={16}>16</MenuItem>
+            <MenuItem value={24}>24</MenuItem>
+            <MenuItem value={32}>32</MenuItem>
+          </Select>
+        </FormControl>
       </div>
     </section>
   );
