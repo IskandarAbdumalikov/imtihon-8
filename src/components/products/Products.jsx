@@ -5,12 +5,24 @@ import Loading from "../loading/Loading";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { Link } from "react-router-dom";
 import { CiHeart } from "react-icons/ci";
-import { FaCartArrowDown } from "react-icons/fa";
+import { FaCartArrowDown, FaHeart, FaRegHeart } from "react-icons/fa";
 import star from "../../assets/products/star.svg";
 import halfStar from "../../assets/products/starHalf.svg";
 import starRegular from "../../assets/products/starRegular.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleHeart } from "../../context/slices/wishlistSlice";
+import {
+  add,
+  decreaseAmount,
+  increaseAmount,
+  remove,
+} from "../../context/slices/cartSlice";
 
 const Products = ({ data, isLoading, isFetching, setLimit, limit }) => {
+  const wishlistData = useSelector((state) => state.wishlist.value);
+  const cartData = useSelector((state) => state.cart.value);
+
+  let dispatch = useDispatch();
   const getRating = (rating) => {
     let res = [];
     for (let i = 0; i < Math.trunc(rating); i++) {
@@ -31,12 +43,66 @@ const Products = ({ data, isLoading, isFetching, setLimit, limit }) => {
         {data?.map((product) => (
           <div className="product__card" key={product.id}>
             <div className="product__card__image">
-              <button className="add-to-cart__btn">Add to cart</button>
-              <div className="menu-btns">
-                <button>
-                  <CiHeart />
+              {cartData.some((el) => el.id === product.id) ? (
+                <div className="counter__btn">
+                  {cartData.find((el) => el.id === product.id).amount === 1 ? (
+                    <button
+                      onClick={() =>
+                        dispatch(
+                          remove(cartData.find((el) => el.id === product.id))
+                        )
+                      }
+                      className="px-4 py-2 bg-gray-200 rounded"
+                    >
+                      -
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() =>
+                        dispatch(
+                          decreaseAmount(
+                            cartData.find((el) => el.id === product.id)
+                          )
+                        )
+                      }
+                      className="px-4 py-2 bg-gray-200 rounded"
+                    >
+                      -
+                    </button>
+                  )}
+
+                  <span className="text-2xl">
+                    {cartData.find((el) => el.id === product.id).amount}
+                  </span>
+                  <button
+                    onClick={() =>
+                      dispatch(
+                        increaseAmount(
+                          cartData.filter((el) => el.id === product.id)[0]
+                        )
+                      )
+                    }
+                    className="px-4 py-2 bg-gray-200 rounded"
+                  >
+                    +
+                  </button>
+                </div>
+              ) : (
+                <button
+                  className="add-to-cart__btn"
+                  onClick={() => dispatch(add(product))}
+                >
+                  ADD to cart
                 </button>
-                
+              )}
+              <div className="menu-btns">
+                <button onClick={() => dispatch(toggleHeart(product))}>
+                  {wishlistData.some((el) => el.id === product.id) ? (
+                    <FaHeart color="crimson" />
+                  ) : (
+                    <FaRegHeart />
+                  )}
+                </button>
               </div>
               <Link to={`/products/${product.id}`}>
                 <img src={product?.images[0]} alt={product?.title} />
@@ -45,51 +111,80 @@ const Products = ({ data, isLoading, isFetching, setLimit, limit }) => {
             <div className="product__card__info">
               <div className="rating__wrapper">
                 <div className="rating">{getRating(product?.rating)}</div>
-                <div className="menu-btns-media">
-                  <button>
-                    <CiHeart />
-                  </button>
-                  <button>
-                    <FaCartArrowDown />
-                  </button>
-                </div>
               </div>
               <p>{product?.title}</p>
               <div className="price">
                 <p>${product?.price}</p>
                 <p>${product?.oldPrice}</p>
               </div>
-              <button className="add-to-cart__btn-media">Add to cart</button>
             </div>
             <div className="menu-btns__media">
-              <button>
-                <CiHeart />
+              <button onClick={() => dispatch(toggleHeart(product))}>
+                {wishlistData.some((el) => el.id === product.id) ? (
+                  <FaHeart color="crimson" />
+                ) : (
+                  <FaRegHeart />
+                )}
               </button>
-              <button>
-                <FaCartArrowDown />
-              </button>
+
+              {cartData.some((el) => el.id === product.id) ? (
+                <div className="products__card__add-to-cart">
+                  {cartData.find((el) => el.id === product.id).amount === 1 ? (
+                    <button
+                      onClick={() =>
+                        dispatch(
+                          remove(cartData.find((el) => el.id === product.id))
+                        )
+                      }
+                      className=""
+                    >
+                      -
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() =>
+                        dispatch(
+                          decreaseAmount(
+                            cartData.find((el) => el.id === product.id)
+                          )
+                        )
+                      }
+                      className="px-4 py-2 bg-gray-200 rounded"
+                    >
+                      -
+                    </button>
+                  )}
+
+                  <span className="text-2xl">
+                    {cartData.find((el) => el.id === product.id).amount}
+                  </span>
+                  <button
+                    onClick={() =>
+                      dispatch(
+                        increaseAmount(
+                          cartData.filter((el) => el.id === product.id)[0]
+                        )
+                      )
+                    }
+                    className="px-4 py-2 bg-gray-200 rounded"
+                  >
+                    +
+                  </button>
+                </div>
+              ) : (
+                <button onClick={() => dispatch(add(product))}>
+                  <FaCartArrowDown />
+                </button>
+              )}
             </div>
           </div>
         ))}
         {isLoading || isFetching ? <Loading numCards={8} /> : <></>}
       </div>
-      <div style={{ marginTop: 50 }} className="products__card__pagination">
-        <FormControl style={{ maxWidth: 200 }} fullWidth>
-          <InputLabel id="demo-simple-select-label">Limit</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={limit}
-            label="Limit"
-            onChange={(e) => setLimit(e.target.value)}
-          >
-            <MenuItem value={8}>8</MenuItem>
-            <MenuItem value={16}>16</MenuItem>
-            <MenuItem value={24}>24</MenuItem>
-            <MenuItem value={32}>32</MenuItem>
-          </Select>
-        </FormControl>
-      </div>
+      <div
+        style={{ marginTop: 50 }}
+        className="products__card__pagination"
+      ></div>
     </section>
   );
 };

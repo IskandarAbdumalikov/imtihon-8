@@ -4,13 +4,14 @@ import { Link, NavLink } from "react-router-dom";
 import headerTop from "../../../assets/header/headerTop.svg";
 import logo from "../../../assets/header/logo.svg";
 import { CiHeart, CiSearch } from "react-icons/ci";
-import { FaCartArrowDown, FaRegHeart, FaUser } from "react-icons/fa";
+import { FaCartArrowDown, FaRegHeart, FaRegUserCircle, FaUser } from "react-icons/fa";
 import HeaderSearchModule from "./HeaderSearchModule";
 import { IoIosArrowDown, IoMdMenu } from "react-icons/io";
 import { MdCancel } from "react-icons/md";
 import { LuShoppingBag } from "react-icons/lu";
 import SearchResults from "./SearchResults";
 import { useGetProductsBySearchQuery } from "../../../context/api/productApi";
+import { FiShoppingBag } from "react-icons/fi";
 
 const Header = () => {
   const [showSearchModule, setShowSearchModule] = useState(false);
@@ -53,12 +54,21 @@ const Header = () => {
             <button onClick={() => setShowSearchModule(true)}>
               <CiSearch />
             </button>
-            <button>
-              <FaUser />
-            </button>
-            <button>
-              <FaCartArrowDown />
-            </button>
+            <Link to={"/admin"}>
+              <button>
+                <FaRegUserCircle />
+              </button>
+            </Link>
+            <Link to={"/cart"}>
+              <button>
+                <FiShoppingBag />
+              </button>
+            </Link>
+            <Link to={"/wishlist"}>
+              <button>
+                <FaRegHeart />
+              </button>
+            </Link>
           </div>
         </nav>
         <HeaderSearchModule
