@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import star from "../../assets/products/star.svg";
-import halfStar from "../../assets/products/starHalf.svg";
-import starRegular from "../../assets/products/starRegular.svg";
 
 import "./products.scss";
 import Loading from "../loading/Loading";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { Link } from "react-router-dom";
+import { CiHeart } from "react-icons/ci";
+import { FaCartArrowDown } from "react-icons/fa";
+import star from "../../assets/products/star.svg";
+import halfStar from "../../assets/products/starHalf.svg";
+import starRegular from "../../assets/products/starRegular.svg";
 
 const Products = ({ data, isLoading, isFetching, setLimit, limit }) => {
   const getRating = (rating) => {
@@ -25,27 +27,51 @@ const Products = ({ data, isLoading, isFetching, setLimit, limit }) => {
 
   return (
     <section className="products">
-      <div className="products__card">
-        {isLoading || isFetching ? <Loading /> : <></>}
+      <div className="products__cards">
         {data?.map((product) => (
           <div className="product__card" key={product.id}>
-            <Link
-              to={`/products/${product.id}`}
-              className="product__card__image"
-            >
+            <div className="product__card__image">
               <button className="add-to-cart__btn">Add to cart</button>
-              <img src={product?.images[0]} alt={product?.title} />
-            </Link>
+              <div className="menu-btns">
+                <button>
+                  <CiHeart />
+                </button>
+                
+              </div>
+              <Link to={`/products/${product.id}`}>
+                <img src={product?.images[0]} alt={product?.title} />
+              </Link>
+            </div>
             <div className="product__card__info">
-              <div className="rating">{getRating(product?.rating)}</div>
+              <div className="rating__wrapper">
+                <div className="rating">{getRating(product?.rating)}</div>
+                <div className="menu-btns-media">
+                  <button>
+                    <CiHeart />
+                  </button>
+                  <button>
+                    <FaCartArrowDown />
+                  </button>
+                </div>
+              </div>
               <p>{product?.title}</p>
               <div className="price">
                 <p>${product?.price}</p>
                 <p>${product?.oldPrice}</p>
               </div>
+              <button className="add-to-cart__btn-media">Add to cart</button>
+            </div>
+            <div className="menu-btns__media">
+              <button>
+                <CiHeart />
+              </button>
+              <button>
+                <FaCartArrowDown />
+              </button>
             </div>
           </div>
         ))}
+        {isLoading || isFetching ? <Loading numCards={8} /> : <></>}
       </div>
       <div style={{ marginTop: 50 }} className="products__card__pagination">
         <FormControl style={{ maxWidth: 200 }} fullWidth>

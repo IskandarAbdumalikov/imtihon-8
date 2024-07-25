@@ -15,6 +15,7 @@ import shipping from "../../assets/products/shipping.svg";
 import secure from "../../assets/products/secure.svg";
 import phone from "../../assets/products/phone.svg";
 import money from "../../assets/products/money.svg";
+import Join from "../../components/join/Join";
 
 const Home = () => {
   let [category, setCategory] = useState("");
@@ -173,18 +174,7 @@ const Home = () => {
         </div>
       </section>
       <div className="space"></div>
-      <section className="newsletter huge__container">
-        <div className="newsletter__left"></div>
-        <div className="newsletter__center">
-          <h2>Join Our Newsletter</h2>
-          <p>Sign up for deals, new products, and promotions</p>
-          <form className="newsletter__form">
-            <input type="email" placeholder="Email address" />
-            <button type="submit">Signup</button>
-          </form>
-        </div>
-        <div className="newsletter__right"></div>
-      </section>
+      <Join/>
     </div>
   );
 };

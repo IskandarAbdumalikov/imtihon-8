@@ -1,7 +1,8 @@
 import React from "react";
 import "./loading.scss";
-const Loading = () => {
-  let loadingCard = (
+
+const Loading = ({ numCards }) => {
+  const loadingCard = (
     <div className="loading__card">
       <div className="loading__img bg__animation"></div>
       <div className="loading__info">
@@ -11,16 +12,12 @@ const Loading = () => {
       </div>
     </div>
   );
+
   return (
     <div className="container loading">
-      {loadingCard}
-      {loadingCard}
-      {loadingCard}
-      {loadingCard}
-      {loadingCard}
-      {loadingCard}
-      {loadingCard}
-      {loadingCard}
+      {Array.from({ length: numCards }).map((_, index) => (
+        <React.Fragment key={index}>{loadingCard}</React.Fragment>
+      ))}
     </div>
   );
 };
