@@ -23,7 +23,7 @@
   &__top {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 100px;
     justify-content: space-between;
     button{
       text-wrap: nowrap;
@@ -47,6 +47,8 @@
       &__image {
         width: 100%;
         max-height: 500px;
+        min-height: 500px;
+        
         z-index: -9999;
         img {
           width: 100%;

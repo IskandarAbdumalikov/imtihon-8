@@ -45,6 +45,7 @@ const SinglePage = () => {
     window.scrollTo(0, 0);
   }, [productId]);
 
+
   const getRating = (rating) => {
     let res = [];
     for (let i = 0; i < Math.trunc(rating); i++) {
@@ -58,6 +59,8 @@ const SinglePage = () => {
     }
     return res;
   };
+
+  
 
   if (isFetching || isLoading) {
     return (

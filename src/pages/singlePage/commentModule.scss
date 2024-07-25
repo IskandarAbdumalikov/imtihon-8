@@ -33,6 +33,9 @@
   }
   textarea {
     max-height: 150px;
+    min-height: 50px;
+    max-width: 460px;
+    min-width: 100px;
   }
 
   button {
