@@ -121,7 +121,7 @@ const SinglePage = () => {
             <h3>${price}</h3>
             {oldPrice && <h2>${oldPrice}</h2>}
           </div>
-          <div className="cart-btn">
+          <div style={{flexWrap:'wrap'}} className="cart-btn">
             {selectedData ? (
               <div className="counter-btns">
                 {selectedData.amount === 1 ? (
