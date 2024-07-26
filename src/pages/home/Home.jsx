@@ -20,6 +20,7 @@ import Join from "../../components/join/Join";
 const Home = () => {
   let [category, setCategory] = useState("");
   let [limit, setLimit] = useState(8);
+
   let { data: blogData } = useGetProductsQuery({ limit: 3, page: 3 });
   let { data, isLoading, isFetching } = useGetProductsQuery({
     category,
@@ -174,7 +175,7 @@ const Home = () => {
         </div>
       </section>
       <div className="space"></div>
-      <Join/>
+      <Join />
     </div>
   );
 };

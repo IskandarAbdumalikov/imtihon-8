@@ -4,7 +4,12 @@ import { Link, NavLink } from "react-router-dom";
 import headerTop from "../../../assets/header/headerTop.svg";
 import logo from "../../../assets/header/logo.svg";
 import { CiHeart, CiSearch } from "react-icons/ci";
-import { FaCartArrowDown, FaRegHeart, FaRegUserCircle, FaUser } from "react-icons/fa";
+import {
+  FaCartArrowDown,
+  FaRegHeart,
+  FaRegUserCircle,
+  FaUser,
+} from "react-icons/fa";
 import HeaderSearchModule from "./HeaderSearchModule";
 import { IoIosArrowDown, IoMdMenu } from "react-icons/io";
 import { MdCancel } from "react-icons/md";
@@ -12,6 +17,8 @@ import { LuShoppingBag } from "react-icons/lu";
 import SearchResults from "./SearchResults";
 import { useGetProductsBySearchQuery } from "../../../context/api/productApi";
 import { FiShoppingBag } from "react-icons/fi";
+import xImg from "../../../assets/cart/x.svg";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [showSearchModule, setShowSearchModule] = useState(false);
@@ -21,6 +28,9 @@ const Header = () => {
   let { data, isError } = useGetProductsBySearchQuery({
     title: searchValue.trim(),
   });
+  const cartData = useSelector((state) => state.cart.value);
+  const wishlistData = useSelector((state) => state.wishlist.value);
+
   return (
     <>
       <header className="header">
@@ -31,7 +41,9 @@ const Header = () => {
               <p>30% off storewide — Limited time! </p>
               <Link>Shop Now</Link>
             </div>
-            <button onClick={() => setShowHeaderTop(false)}>x</button>
+            <button onClick={() => setShowHeaderTop(false)}>
+              <img src={xImg} alt="" />
+            </button>
           </div>
         ) : (
           <></>
@@ -60,13 +72,15 @@ const Header = () => {
               </button>
             </Link>
             <Link to={"/cart"}>
-              <button>
+              <button className="with__sup">
                 <FiShoppingBag />
+                <sup>{cartData?.length ? cartData?.length : 0}</sup>
               </button>
             </Link>
             <Link to={"/wishlist"}>
-              <button>
+              <button className="with__sup">
                 <FaRegHeart />
+                <sup>{wishlistData?.length ? wishlistData?.length : 0}</sup>
               </button>
             </Link>
           </div>

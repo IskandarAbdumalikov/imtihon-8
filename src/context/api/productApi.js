@@ -45,6 +45,21 @@ export const productApi = api.injectEndpoints({
       }),
       invalidatesTags: ["Product"],
     }),
+    addComment: build.mutation({
+      query: ({ id, body }) => ({
+        url: `/products/${id}`,
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["Product"],
+    }),
+    getComments: build.query({
+      query: (params) => ({
+        url: "/products",
+        params,
+      }),
+      providesTags: ["Product"],
+    }),
   }),
 });
 
@@ -54,5 +69,7 @@ export const {
   useDeleteProductMutation,
   useUpdateProductMutation,
   useGetProductsBySearchQuery,
-  useGetProductByIdQuery
+  useGetProductByIdQuery,
+  useAddCommentMutation,
+  useGetCommentsQuery
 } = productApi;

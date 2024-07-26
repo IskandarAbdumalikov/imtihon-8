@@ -1,7 +1,8 @@
 .newsletter {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+
   padding: 2rem;
   background-color: #f9f9f9;
   min-height: 400px;
@@ -18,50 +19,36 @@
     }
   }
 
-  &__left {
-    padding: 2rem;
-    text-align: left;
-
-    h3 {
-      color: #007bff;
-      font-size: 1.2rem;
-      margin-bottom: 1rem;
+  &__center {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    h2 {
+      font-size: 40px;
     }
-
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-
     p {
-      font-size: 1rem;
-      margin-bottom: 2rem;
+      font-size: 18px;
     }
-
-    .form {
+    &__form {
       display: flex;
       align-items: center;
-
+      border-bottom: 1px solid black;
+      padding: 10px 0px;
+      gap: 20px;
+      width: 100%;
       input {
-        flex: 1;
-        padding: 0.5rem;
-        border: 1px solid #ddd;
-        border-radius: 4px 0 0 4px;
-        font-size: 1rem;
-      }
-
-      button {
-        padding: 0.5rem 1rem;
         border: none;
-        background-color: #007bff;
-        color: #fff;
-        border-radius: 0 4px 4px 0;
-        cursor: pointer;
-        font-size: 1rem;
-
-        &:hover {
-          background-color: #0056b3;
-        }
+        outline: none;
+        flex: 1;
+        background: transparent;
+      }
+      button{
+        border: none;
+        outline: none;
+        background: transparent;
+        font-size: 18px;
       }
     }
   }

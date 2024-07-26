@@ -1,61 +1,57 @@
-.commentModal {
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 9999;
-  background: white;
-  padding: 20px;
+.comment-modal {
+  background: #fff;
   border-radius: 10px;
-  width: 90%;
   max-width: 500px;
+  margin: 100px auto;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.comment-modal-overlay {
+  background: rgba(0, 0, 0, 0.5);
   position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  h2 {
-    font-size: 20px;
-    margin-bottom: 20px;
-  }
+.comment-modal h2 {
+  margin-bottom: 20px;
+}
 
-  label {
-    display: block;
-    margin-bottom: 10px;
-    font-size: 16px;
-  }
+.comment-modal .form-group {
+  margin-bottom: 20px;
+}
 
-  input[type="text"],
-  textarea,
-  select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-  }
-  textarea {
-    max-height: 150px;
-    min-height: 50px;
-    max-width: 460px;
-    min-width: 100px;
-  }
+.comment-modal label {
+  display: block;
+  margin-bottom: 5px;
+}
 
-  button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.comment-modal input,
+.comment-modal textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
 
-    &:hover {
-      background-color: #0056b3;
-    }
-  }
+.comment-modal textarea {
+  min-height: 100px;
+  max-height: 300px;
+  max-width: 500px;
+  min-width: 300px;
+}
 
-  .close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
-    cursor: pointer;
-  }
+.comment-modal button {
+  padding: 10px 20px;
+  border: none;
+  background: #333;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
 }

@@ -2,70 +2,61 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import "./commentModule.scss";
 
-Modal.setAppElement("#root");
-
 const CommentModal = ({ isOpen, onRequestClose, onSubmit }) => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
   const [comment, setComment] = useState("");
-  const [rating, setRating] = useState("");
+  const [rating, setRating] = useState(0);
+  const [userName, setUserName] = useState("");
 
-  const handleSubmit = () => {
-    const commentData = {
-      firstName,
-      lastName,
-      comment,
-      commentRating: rating,
-    };
-    onSubmit(commentData);
-    onRequestClose();
-    setFirstName("");
-    setLastName("");
-    setRating("");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit({ text: [comment], rating: [rating], user: [userName] });
+    setComment("");
+    setRating(0);
+    setUserName("");
   };
 
   return (
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
-      className="commentModal"
-      overlayClassName="commentModalOverlay"
+      className="comment-modal"
+      overlayClassName="comment-modal-overlay"
     >
-      <span className="close" onClick={onRequestClose}>
-        &times;
-      </span>
       <h2>Write a Review</h2>
-      <label>First Name</label>
-      <input
-        type="text"
-        value={firstName}
-        onChange={(e) => setFirstName(e.target.value)}
-      />
-      <label>Last Name</label>
-      <input
-        type="text"
-        value={lastName}
-        onChange={(e) => setLastName(e.target.value)}
-      />
-
-      <label>Comment</label>
-      <textarea
-        type="text"
-        value={comment}
-        onChange={(e) => setComment(e.target.value)}
-      ></textarea>
-      <label>Rating</label>
-      <select value={rating} onChange={(e) => setRating(e.target.value)}>
-        <option value="">Select rating</option>
-        <option value="1">1 star</option>
-        <option value="2">2 stars</option>
-        <option value="3">3 stars</option>
-        <option value="4">4 stars</option>
-        <option value="5">5 stars</option>
-      </select>
-      <button type="submit" onClick={handleSubmit}>
-        Submit
-      </button>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="userName">Full Name</label>
+          <input
+            type="text"
+            id="userName"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="rating">Rating</label>
+          <input
+            type="number"
+            id="rating"
+            min="0"
+            max="5"
+            value={rating}
+            onChange={(e) => setRating(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="comment">Comment</label>
+          <textarea
+            id="comment"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            required
+          ></textarea>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
     </Modal>
   );
 };
