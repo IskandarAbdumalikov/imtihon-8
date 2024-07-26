@@ -11,6 +11,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Checkout from "./pages/checkout/Checkout";
 import Complete from "./pages/complete/Complete";
+import Contact from "./pages/contact/Contact";
+import Blog from "./pages/blog/Blog";
 
 const App = () => {
   return (
@@ -23,6 +25,8 @@ const App = () => {
           <Route path="cart" element={<Cart />} />
           <Route path="checkout" element={<Checkout />} />
           <Route path="complete" element={<Complete />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="blog" element={<Blog />} />
         </Route>
         <Route path="/admin" element={<Admin />} />
       </Routes>

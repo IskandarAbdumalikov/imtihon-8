@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./complete.scss";
 import { FaCheck } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,6 +19,16 @@ const Complete = () => {
     dispatch(removeAll());
     navigate("/");
   };
+
+
+
+  useEffect(() => {
+    return () => {
+      console.log("/go home");
+      handleComplete();
+    };
+  }, []);
+
   return (
     <div className="complete">
       <div className="complete__header">

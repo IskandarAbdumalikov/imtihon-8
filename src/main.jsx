@@ -8,13 +8,13 @@ import { store } from "./context/index.js";
 import LazyLoading from "./components/lazyLoading/LazyLoading.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <Suspense fallback={<LazyLoading />}>
-      <BrowserRouter>
-        <Provider store={store}>
-          <App />
-        </Provider>
-      </BrowserRouter>
-    </Suspense>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <Suspense fallback={<LazyLoading />}>
+    <BrowserRouter>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </BrowserRouter>
+  </Suspense>
+  // </React.StrictMode>
 );

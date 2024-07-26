@@ -57,7 +57,9 @@ const Cart = () => {
   if (cartData.length === 0) {
     return (
       <Empty
-        url={"https://cdn-icons-png.flaticon.com/512/11329/11329060.png"}
+        url={
+          "https://cdni.iconscout.com/illustration/premium/thumb/empty-wishlist-12057807-9824477.png?f=webp"
+        }
         title={"Cart"}
       />
     );

@@ -3,11 +3,22 @@ import { FaCheck } from "react-icons/fa";
 import { CiCreditCard1 } from "react-icons/ci";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { increaseAmount, decreaseAmount } from "../../context/slices/cartSlice";
+import {
+  increaseAmount,
+  decreaseAmount,
+  removeAll,
+} from "../../context/slices/cartSlice";
 import "./checkout.scss";
 
 const Checkout = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const cartData = useSelector((state) => state.cart.value);
+
+  if (!cartData.length) {
+    dispatch(removeAll());
+    navigate("/");
+  }
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
@@ -21,16 +32,17 @@ const Checkout = () => {
   const [date, setDate] = useState("");
   const [method, setMethod] = useState("");
   const [cvc, setCvc] = useState("");
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const BOT_TOKEN = "7313879684:AAH0lhoKddXhkYP-YO5QnYueauqqT3J9hzE";
   const CHAT_ID = "-1002180292093";
 
+  const handleChooseMethod = (method) => {
+    localStorage.setItem("method", method);
+    setMethod(method);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    localStorage.setItem("method", method);
-    
 
     let text = `Checkout Info %0A`;
     text += `First Name: ${firstName} %0A`;
@@ -212,7 +224,11 @@ const Checkout = () => {
           </div>
           <div className="checkout__section">
             <h2>Payment</h2>
-            <label className="payment__method" htmlFor="credit__card">
+            <label
+              onClick={() => handleChooseMethod("Via Credit card")}
+              className="payment__method"
+              htmlFor="credit__card"
+            >
               <input
                 onSelect={(e) => setMethod(e.target.value)}
                 type="radio"
@@ -223,7 +239,11 @@ const Checkout = () => {
               <p>Pay by Card Credit</p>
               <CiCreditCard1 />
             </label>
-            <label className="payment__method" htmlFor="paypal">
+            <label
+              onClick={() => handleChooseMethod("Via Paypal")}
+              className="payment__method"
+              htmlFor="paypal"
+            >
               <input
                 onSelect={(e) => setMethod(e.target.value)}
                 type="radio"

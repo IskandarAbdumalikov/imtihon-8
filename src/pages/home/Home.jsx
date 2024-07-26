@@ -11,11 +11,9 @@ import Products from "../../components/products/Products";
 import { useGetCategoriesQuery } from "../../context/api/categoryApi";
 import saleBg from "../../assets/home/saleBg.svg";
 import { articlesData } from "../../../data";
-import shipping from "../../assets/products/shipping.svg";
-import secure from "../../assets/products/secure.svg";
-import phone from "../../assets/products/phone.svg";
-import money from "../../assets/products/money.svg";
+
 import Join from "../../components/join/Join";
+import SupportCards from "../../components/supportCards/SupportCards";
 
 const Home = () => {
   let [category, setCategory] = useState("");
@@ -116,28 +114,8 @@ const Home = () => {
           isFetching={isFetching}
           isLoading={isLoading}
         />
-        <div className="products__bottom__cards">
-          <div className="products__bottom__card">
-            <img src={shipping} alt="" />
-            <h3>Free Shipping</h3>
-            <p>Order above $200</p>
-          </div>
-          <div className="products__bottom__card">
-            <img src={secure} alt="" />
-            <h3>Secure Payments</h3>
-            <p>30 days guarantee</p>
-          </div>
-          <div className="products__bottom__card">
-            <img src={phone} alt="" />
-            <h3>24/7 Support</h3>
-            <p>Secured by Stripe</p>
-          </div>
-          <div className="products__bottom__card">
-            <img src={money} alt="" />
-            <h3>Money-back</h3>
-            <p>Phone and Email support</p>
-          </div>
-        </div>
+
+        <SupportCards bg={"white"} />
       </section>
       <div className="space"></div>
       <section className="sale huge__container">

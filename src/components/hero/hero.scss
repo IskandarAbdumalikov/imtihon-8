@@ -1,0 +1,21 @@
+.common__hero{
+    padding: 115px 0px !important;
+    display: flex;
+    margin-top: 20px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    color: black;
+    background-position: top;
+    background-size: cover;
+    backdrop-filter: blur(5px);
+    h1{
+        font-size: 54px;
+    }
+    .hero__route{
+        display: flex;
+        align-items: center;
+        gap: 2px;
+    }
+}

@@ -11,7 +11,7 @@ const Wishlist = () => {
     return (
       <Empty
         url={
-          "https://i.pinimg.com/originals/f6/e4/64/f6e464230662e7fa4c6a4afb92631aed.png"
+          "https://cdni.iconscout.com/illustration/premium/thumb/empty-wishlist-12057806-9824476.png?f=webp"
         }
         title={"Wishlist"}
       />

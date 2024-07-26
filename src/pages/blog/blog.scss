@@ -1,0 +1,40 @@
+.blog {
+  padding: 0px 16px;
+}
+
+.blog__products {
+  padding: 50px 0px;
+  .blog__products__header {
+    padding-top: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .sorts {
+      width: 15%;
+      .demo-simple-select {
+        max-width: 200px;
+      }
+    }
+  }
+  &__products{
+    display: flex;
+    flex-direction: column;
+    .blog__products__products__btn{
+        padding: 10px 15px ;
+        background: black;
+        color: white;
+        border: 1px solid black;
+        border-radius: 20px;
+        font-size: 18px;
+        margin: 0 auto;
+        min-width: 120px;
+        min-height: 40px;
+        transition: 0.3s;
+        margin-bottom: 50px;
+        &:hover{
+            background: white;
+            color: black;
+        }
+    }
+  }
+}
