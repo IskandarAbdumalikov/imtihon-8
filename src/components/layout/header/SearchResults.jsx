@@ -16,9 +16,7 @@ const SearchResults = ({ data, handleClose, isError }) => {
             className="search__results__card"
             onClick={handleClose}
           >
-            <div>
-              <img width={25} height={25} src={item.images[0]} alt="" />
-            </div>
+            <img width={25} height={25} src={item.images[0]} alt="" />
             <p>{item.title}</p>
           </Link>
         ))
