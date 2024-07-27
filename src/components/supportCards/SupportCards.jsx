@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import "./support.scss";
 import shipping from "../../assets/products/shipping.svg";
 import secure from "../../assets/products/secure.svg";
@@ -34,4 +34,4 @@ const SupportCards = ({ bg }) => {
   );
 };
 
-export default SupportCards;
+export default memo(SupportCards);

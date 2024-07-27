@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { memo, useEffect } from "react";
 import "./complete.scss";
 import { FaCheck } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -94,4 +94,4 @@ const Complete = () => {
   );
 };
 
-export default Complete;
+export default memo(Complete);

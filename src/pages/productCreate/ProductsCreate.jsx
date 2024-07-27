@@ -4,6 +4,7 @@ import { useGetCategoriesQuery } from "../../context/api/categoryApi";
 import "../admin/admin.scss";
 import { FaStar } from "react-icons/fa";
 import LocalImages from "./LocalImages";
+import { useNavigate } from "react-router-dom";
 
 const initialState = {
   title: "",
@@ -20,12 +21,13 @@ const ProductCreate = () => {
   const { data: categoryData } = useGetCategoriesQuery();
   const [handleCreate] = useCreateProductMutation();
   const [productData, setProductData] = useState(initialState);
-  const [imageFiles, setImageFiles] = useState([]); 
+  const [imageFiles, setImageFiles] = useState([]);
+  let navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (name === "images" && files) {
-      setImageFiles(files); 
+      setImageFiles(files);
     } else {
       setProductData({ ...productData, [name]: value });
     }
@@ -49,11 +51,12 @@ const ProductCreate = () => {
         category,
         rating: Number(rating),
         stock: Number(stock),
-        images: imageUrls, 
+        images: imageUrls,
       });
 
       setProductData(initialState);
-      setImageFiles([]); 
+      setImageFiles([]);
+      navigate("/admin/productManage");
     } catch (error) {
       console.error("Error creating product:", error);
     }
@@ -182,7 +185,7 @@ const ProductCreate = () => {
             className="form-input"
             multiple
           />
-          <LocalImages files={imageFiles} /> 
+          <LocalImages files={imageFiles} />
         </div>
         <button type="submit" className="form-button">
           Create Product

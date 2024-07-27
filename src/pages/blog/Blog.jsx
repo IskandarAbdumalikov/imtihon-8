@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import "./blog.scss";
 import Hero from "../../components/hero/Hero";
 import Products from "../../components/products/Products";
@@ -69,4 +69,4 @@ const Blog = () => {
   );
 };
 
-export default Blog;
+export default memo(Blog);

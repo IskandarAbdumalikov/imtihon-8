@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import "./products.scss";
 import Loading from "../loading/Loading";
 import { Link } from "react-router-dom";
@@ -255,7 +255,7 @@ const Products = ({
   );
 };
 
-export default Products;
+export default memo(Products);
 
 const style = {
   position: "absolute",

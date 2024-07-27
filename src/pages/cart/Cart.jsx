@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, memo } from "react";
 import "./cart.scss";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -214,4 +214,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default memo(Cart);

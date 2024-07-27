@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import "./hero.scss";
 
 const Hero = ({ title, subtitle, route, bg }) => {
@@ -18,4 +18,4 @@ const Hero = ({ title, subtitle, route, bg }) => {
   );
 };
 
-export default Hero;
+export default memo(Hero);

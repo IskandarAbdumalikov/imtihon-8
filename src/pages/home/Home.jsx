@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import "./home.scss";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -162,4 +162,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default memo(Home);

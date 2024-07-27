@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import "./login.scss";
 import logo from "../../assets/header/logo.svg";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
@@ -87,4 +87,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default memo(Login);

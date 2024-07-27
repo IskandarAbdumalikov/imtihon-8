@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import contact from "../../assets/contact/contact.svg";
 import { Link } from "react-router-dom";
 import "./contact.scss";
@@ -151,4 +151,4 @@ const Contact = () => {
   );
 };
 
-export default Contact;
+export default memo(Contact);

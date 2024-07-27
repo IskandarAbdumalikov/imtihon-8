@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import "./wishlist.scss";
 import Products from "../../components/products/Products";
 import { useSelector } from "react-redux";
@@ -28,4 +28,4 @@ const Wishlist = () => {
   );
 };
 
-export default Wishlist;
+export default memo(Wishlist);

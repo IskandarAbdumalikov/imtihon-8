@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { memo, useEffect } from "react";
 import AdminHeader from "../../components/adminHeader/AdminHeader";
 import Sidebar from "../../components/sidebar/Sidebar";
 import { Outlet, useNavigate } from "react-router-dom";
@@ -25,4 +25,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default memo(Admin);

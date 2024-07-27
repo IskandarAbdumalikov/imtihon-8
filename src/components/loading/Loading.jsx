@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, memo } from "react";
 import "./loading.scss";
 
 const Loading = ({ numCards }) => {
@@ -22,4 +22,4 @@ const Loading = ({ numCards }) => {
   );
 };
 
-export default Loading;
+export default memo(Loading);

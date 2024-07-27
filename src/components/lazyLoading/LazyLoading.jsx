@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import "./lazyLoading.scss";
 
 const LazyLoading = () => {
@@ -9,4 +9,4 @@ const LazyLoading = () => {
   );
 };
 
-export default LazyLoading;
+export default memo(LazyLoading);

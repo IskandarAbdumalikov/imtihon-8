@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import Modal from "react-modal";
 import "./commentModule.scss";
 
@@ -61,4 +61,4 @@ const CommentModal = ({ isOpen, onRequestClose, onSubmit }) => {
   );
 };
 
-export default CommentModal;
+export default memo(CommentModal);

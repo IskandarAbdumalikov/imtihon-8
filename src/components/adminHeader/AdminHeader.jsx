@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 const AdminHeader = () => {
   return (
@@ -8,4 +8,4 @@ const AdminHeader = () => {
   );
 };
 
-export default AdminHeader;
+export default memo(AdminHeader);

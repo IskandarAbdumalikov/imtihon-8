@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import "./header.scss";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import headerTop from "../../../assets/header/headerTop.svg";
@@ -175,4 +175,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default memo(Header);

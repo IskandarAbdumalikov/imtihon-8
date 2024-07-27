@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { useCreateCategoryMutation } from "../../context/api/categoryApi";
 import "../admin/admin.scss";
+import { useNavigate } from "react-router-dom";
 
 const initialState = {
   name: "",
@@ -10,6 +11,7 @@ const initialState = {
 const CategoryCreate = () => {
   const [handleCreate, { data }] = useCreateCategoryMutation();
   const [categoryData, setCategoryData] = useState(initialState);
+  let navigate = useNavigate();
 
   const handleChange = (e) => {
     setCategoryData({ ...categoryData, [e.target.name]: e.target.value });
@@ -23,6 +25,7 @@ const CategoryCreate = () => {
       title: name,
     });
     setCategoryData(initialState);
+    navigate("/admin/categoryManage");
   };
 
   return (
@@ -53,4 +56,4 @@ const CategoryCreate = () => {
   );
 };
 
-export default CategoryCreate;
+export default memo(CategoryCreate);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./singlePage.scss";
 import { useGetProductByIdQuery } from "../../context/api/productApi";
@@ -42,7 +42,6 @@ const SinglePage = () => {
 
   const dispatch = useDispatch();
   const wishlistData = useSelector((state) => state.wishlist.value);
-
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -392,4 +391,4 @@ const SinglePage = () => {
   );
 };
 
-export default SinglePage;
+export default memo(SinglePage);

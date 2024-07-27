@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { CiSearch } from "react-icons/ci";
 import { MdCancel } from "react-icons/md";
 import { NavLink } from "react-router-dom";
@@ -62,4 +62,4 @@ const HeaderSearchModule = ({
   );
 };
 
-export default HeaderSearchModule;
+export default memo(HeaderSearchModule);

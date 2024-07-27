@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import "./empty.scss";
 import { useNavigate } from "react-router-dom";
 const Empty = ({url,title}) => {
@@ -10,4 +10,4 @@ const Empty = ({url,title}) => {
   </div>;
 };
 
-export default Empty;
+export default memo(Empty);

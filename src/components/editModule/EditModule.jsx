@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import "./editModule.scss";
 import { useGetCategoriesQuery } from "../../context/api/categoryApi";
 
@@ -130,4 +130,4 @@ const EditModule = ({ data, onUpdate, setShowEditModule }) => {
   );
 };
 
-export default EditModule;
+export default memo(EditModule);

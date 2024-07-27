@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import "./footer.scss";
 import logo from "../../../assets/footer/footerLogo.svg";
 import { Link } from "react-router-dom";
@@ -48,4 +48,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default memo(Footer);
