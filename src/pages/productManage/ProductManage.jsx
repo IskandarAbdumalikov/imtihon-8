@@ -43,6 +43,10 @@ const ProductManage = () => {
     setShowEdit(false);
   };
 
+  const handleDelete = async (productId) => {
+    await deleteProduct(productId);
+  };
+
   return (
     <div className="product-manage">
       <div className="filter">
@@ -64,6 +68,7 @@ const ProductManage = () => {
         isFetching={isFetching}
         isLoading={isLoading}
         isShowManaging={true}
+        onDelete={handleDelete}
         onEdit={handleEdit}
       />
       {showEdit && (

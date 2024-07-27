@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./products.scss";
 import Loading from "../loading/Loading";
 import { Link } from "react-router-dom";
@@ -15,12 +15,39 @@ import {
   remove,
 } from "../../context/slices/cartSlice";
 import { MdDelete } from "react-icons/md";
+import { Button, Modal, Box, Typography } from "@mui/material";
 
-const Products = ({ data, isLoading, isFetching, isShowManaging, onEdit }) => {
+const Products = ({
+  data,
+  isLoading,
+  isFetching,
+  isShowManaging,
+  onEdit,
+  onDelete,
+}) => {
   const wishlistData = useSelector((state) => state.wishlist.value);
   const cartData = useSelector((state) => state.cart.value);
 
-  let dispatch = useDispatch();
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedProductId, setSelectedProductId] = useState(null);
+
+  const dispatch = useDispatch();
+
+  const handleOpenModal = (productId) => {
+    setSelectedProductId(productId);
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedProductId(null);
+    setOpenModal(false);
+  };
+
+  const handleConfirmDelete = () => {
+    onDelete(selectedProductId);
+    handleCloseModal();
+  };
+
   const getRating = (rating) => {
     let res = [];
     for (let i = 0; i < Math.trunc(rating); i++) {
@@ -121,7 +148,10 @@ const Products = ({ data, isLoading, isFetching, isShowManaging, onEdit }) => {
                         >
                           <FaEdit />
                         </button>
-                        <button className="delete-btn">
+                        <button
+                          onClick={() => handleOpenModal(product.id)}
+                          className="delete-btn"
+                        >
                           <MdDelete />
                         </button>
                       </div>
@@ -199,8 +229,40 @@ const Products = ({ data, isLoading, isFetching, isShowManaging, onEdit }) => {
         style={{ marginTop: 50 }}
         className="products__card__pagination"
       ></div>
+      <Modal open={openModal} onClose={handleCloseModal}>
+        <Box sx={{ ...style, width: 400 }}>
+          <Typography variant="h6" component="h2">
+            Confirm Delete
+          </Typography>
+          <Typography sx={{ mt: 2 }}>
+            Are you sure you want to delete this product?
+          </Typography>
+          <Box sx={{ mt: 3, display: "flex", justifyContent: "space-between" }}>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={handleConfirmDelete}
+            >
+              Yes
+            </Button>
+            <Button variant="contained" onClick={handleCloseModal}>
+              No
+            </Button>
+          </Box>
+        </Box>
+      </Modal>
     </section>
   );
 };
 
 export default Products;
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  p: 4,
+};
