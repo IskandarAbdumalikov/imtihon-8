@@ -54,10 +54,18 @@ const Header = () => {
             <img src={logo} alt="" />
           </Link>
           <ul>
-            <NavLink to={"/"}>Home</NavLink>
-            <NavLink to={"/shop"}>Shop</NavLink>
-            <NavLink to={"/blog"}>Blog</NavLink>
-            <NavLink to={"/contact"}>Contact us</NavLink>
+            <NavLink onClick={() => setShowList(false)} to={"/"}>
+              Home
+            </NavLink>
+            <NavLink onClick={() => setShowList(false)} to={"/shop"}>
+              Shop
+            </NavLink>
+            <NavLink onClick={() => setShowList(false)} to={"/blog"}>
+              Blog
+            </NavLink>
+            <NavLink onClick={() => setShowList(false)} to={"/contact"}>
+              Contact us
+            </NavLink>
           </ul>
 
           <div className="header__bottom__btns">
@@ -70,18 +78,21 @@ const Header = () => {
             >
               <CiSearch />
             </button>
-            <Link to={isLogin ? "/admin/productManage" : "/login"}>
+            <Link
+              onClick={() => setShowList(false)}
+              to={isLogin ? "/admin/productManage" : "/login"}
+            >
               <button>
                 <FaRegUserCircle />
               </button>
             </Link>
-            <Link to={"/cart"}>
+            <Link onClick={() => setShowList(false)} to={"/cart"}>
               <button className="with__sup">
                 <FiShoppingBag />
                 <sup>{cartData?.length ? cartData?.length : 0}</sup>
               </button>
             </Link>
-            <Link to={"/wishlist"}>
+            <Link onClick={() => setShowList(false)} to={"/wishlist"}>
               <button className="with__sup">
                 <FaRegHeart />
                 <sup>{wishlistData?.length ? wishlistData?.length : 0}</sup>
@@ -140,30 +151,44 @@ const Header = () => {
           </form>
 
           <li>
-            <NavLink to={"/"}>Home</NavLink>
+            <NavLink onClick={() => setShowList(false)} to={"/"}>
+              Home
+            </NavLink>
           </li>
           <li>
-            <NavLink to={"/shop"}>Shop</NavLink>
+            <NavLink onClick={() => setShowList(false)} to={"/shop"}>
+              Shop
+            </NavLink>
             <IoIosArrowDown />
           </li>
           <li>
-            <NavLink to={"/product"}>Product</NavLink>
+            <NavLink onClick={() => setShowList(false)} to={"/blog"}>
+              Blog
+            </NavLink>
             <IoIosArrowDown />
           </li>
           <li>
-            <NavLink to={"/contact"}>Contact Us</NavLink>
+            <NavLink onClick={() => setShowList(false)} to={"/contact"}>
+              Contact Us
+            </NavLink>
           </li>
         </div>
         <div className="header-media__bottom">
-          <li>
-            <NavLink to={"/cart"}>Cart</NavLink>
-            <LuShoppingBag />
-          </li>
-          <li>
-            <NavLink to={"/wishlist"}>Wishlist</NavLink>
-            <FaRegHeart />
-          </li>
-          <button>Sign in</button>
+          <NavLink onClick={() => setShowList(false)} to={"/cart"}>
+            <li>
+              <a href="">Cart</a>
+              <LuShoppingBag />
+            </li>
+          </NavLink>
+          <NavLink onClick={() => setShowList(false)} to={"/wishlist"}>
+            <li>
+              <a href="">Wishlist</a>
+              <FaRegHeart />
+            </li>
+          </NavLink>
+          <Link to={isLogin ? "/admin/productManage" : "/login"}>
+            <button>Sign in</button>
+          </Link>
         </div>
       </header>
       {showList ? (
