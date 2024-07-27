@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 
 const Complete = () => {
   let cartData = useSelector((state) => state.cart.value);
+  const orderValue = useSelector((state) => state.order.value);
+
   let method = localStorage.getItem("method");
   const totalAmount = cartData.reduce(
     (sum, item) => sum + item.price * item.amount,
@@ -20,11 +22,14 @@ const Complete = () => {
     navigate("/");
   };
 
-
+  useEffect(() => {
+    if (!orderValue || !cartData.length) {
+      navigate("/cart");
+    }
+  }, [orderValue, cartData.length]);
 
   useEffect(() => {
     return () => {
-      console.log("/go home");
       handleComplete();
     };
   }, []);

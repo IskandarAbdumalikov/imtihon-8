@@ -107,13 +107,17 @@ const Home = () => {
           ))}
         </ul>
 
-        <Products
-          limit={limit}
-          setLimit={setLimit}
-          data={data}
-          isFetching={isFetching}
-          isLoading={isLoading}
-        />
+        <div style={{display:"flex",alignItems:"center",flexDirection:"column"}}>
+          <Products
+            data={data}
+            isFetching={isFetching}
+            isShowManaging={false}
+            isLoading={isLoading}
+          />
+          <button className="load-more" onClick={() => setLimit(limit + 8)}>
+            {isFetching && isLoading ? "Loading..." : "Load More"}
+          </button>
+        </div>
 
         <SupportCards bg={"white"} />
       </section>

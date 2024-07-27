@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import { RiCouponLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import Empty from "../../components/empty/Empty";
+import { order } from "../../context/slices/orderSlice";
 
 const Cart = () => {
   const cartData = useSelector((state) => state.cart.value);
@@ -20,7 +21,7 @@ const Cart = () => {
   const [total, setTotal] = useState(0);
   const couponInputRef = useRef(null);
   let navigate = useNavigate();
-
+  
   useEffect(() => {
     calculateTotal();
   }, [cartData, discount]);
@@ -40,6 +41,7 @@ const Cart = () => {
 
   const handleCheckout = () => {
     calculateTotal();
+    dispatch(order(true));
     navigate("/checkout");
   };
 

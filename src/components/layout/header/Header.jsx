@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./header.scss";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import headerTop from "../../../assets/header/headerTop.svg";
 import logo from "../../../assets/header/logo.svg";
 import { CiHeart, CiSearch } from "react-icons/ci";
@@ -18,7 +18,7 @@ import SearchResults from "./SearchResults";
 import { useGetProductsBySearchQuery } from "../../../context/api/productApi";
 import { FiShoppingBag } from "react-icons/fi";
 import xImg from "../../../assets/cart/x.svg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Header = () => {
   const [showSearchModule, setShowSearchModule] = useState(false);
@@ -28,6 +28,7 @@ const Header = () => {
   let { data, isError } = useGetProductsBySearchQuery({
     title: searchValue.trim(),
   });
+  const isLogin = useSelector((state) => state.isLogin.value);
   const cartData = useSelector((state) => state.cart.value);
   const wishlistData = useSelector((state) => state.wishlist.value);
 
@@ -63,10 +64,13 @@ const Header = () => {
             <button className="menu-btn" onClick={() => setShowList(true)}>
               <IoMdMenu />
             </button>
-            <button onClick={() => setShowSearchModule(true)}>
+            <button
+              className="search__btn__noner"
+              onClick={() => setShowSearchModule(true)}
+            >
               <CiSearch />
             </button>
-            <Link to={"/admin"}>
+            <Link to={isLogin ? "/admin/productManage" : "/login"}>
               <button>
                 <FaRegUserCircle />
               </button>

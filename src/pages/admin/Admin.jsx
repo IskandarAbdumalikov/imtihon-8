@@ -1,9 +1,28 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import AdminHeader from "../../components/adminHeader/AdminHeader";
+import Sidebar from "../../components/sidebar/Sidebar";
+import { Outlet, useNavigate } from "react-router-dom";
+import "./admin.scss";
+import { useSelector } from "react-redux";
 
 const Admin = () => {
-  return (
-    <div>Admin</div>
-  )
-}
+  const isLogin = useSelector((state) => state.isLogin.value);
+  let navigate = useNavigate();
 
-export default Admin
+  useEffect(() => {
+    if (!isLogin) {
+      navigate("/login");
+    }
+  }, [isLogin]);
+  return (
+    <div className="admin">
+      <Sidebar />
+      <div>
+        <AdminHeader />
+        <Outlet />
+      </div>
+    </div>
+  );
+};
+
+export default Admin;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import "./loading.scss";
 
 const Loading = ({ numCards }) => {
@@ -16,7 +16,7 @@ const Loading = ({ numCards }) => {
   return (
     <div className="container loading">
       {Array.from({ length: numCards }).map((_, index) => (
-        <React.Fragment key={index}>{loadingCard}</React.Fragment>
+        <Fragment key={index}>{loadingCard}</Fragment>
       ))}
     </div>
   );

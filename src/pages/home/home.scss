@@ -173,6 +173,14 @@
   flex-direction: column;
   gap: 20px;
   padding: 50px 0px;
+  .load-more{
+    padding: 10px 20px;
+    background: #22c55e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin: 0 auto;
+  }
 
   ul {
     padding: 20px 16px;

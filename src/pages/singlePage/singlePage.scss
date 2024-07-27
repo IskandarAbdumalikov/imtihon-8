@@ -25,7 +25,7 @@
     flex-direction: column;
     gap: 100px;
     justify-content: space-between;
-    button{
+    button {
       text-wrap: nowrap;
     }
 
@@ -48,13 +48,19 @@
         width: 100%;
         max-height: 500px;
         min-height: 500px;
-        
+
         z-index: -9999;
         img {
           width: 100%;
           height: 100%;
           object-fit: cover;
           border-radius: 10px;
+        }
+        @media (max-width: 592px) {
+          min-height: 400px;
+        }
+        @media (max-width: 400px) {
+          min-height: 300px;
         }
       }
 
@@ -130,75 +136,107 @@
   }
 
   &__bottom {
+    .abTab {
+      padding: 50px 0px;
+      &__header {
+        display: flex;
+        align-items: center;
+        gap: 50px;
+        overflow-x: scroll;
+        padding-bottom: 20px;
+        &::-webkit-scrollbar {
+          width: 2px;
+          height: 5px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background-color: rgb(206, 206, 206);
+          border-radius: 8px;
+        }
+
+        &::-webkit-scrollbar {
+          width: 2px;
+        }
+        p {
+          color: #807e7e;
+          text-wrap: nowrap;
+          font-size: 18px;
+          font-weight: 500;
+          border-bottom: 1px solid #807e7e;
+          cursor: pointer;
+        }
+        .active {
+          color: #121212;
+          border-bottom: 1px solid #121212;
+        }
+      }
+    }
+
     padding-top: 100px;
     .reviews {
-      margin-top: 40px;
       display: flex;
       flex-direction: column;
       gap: 30px;
-
-      h2 {
-        font-size: 24px;
-        margin-bottom: 20px;
-      }
-
-      button {
-        padding: 10px 20px;
-        background-color: black;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        margin-bottom: 20px;
-        max-width: 200px;
-
-        &:hover {
-          background-color: #181818;
+      &__header {
+        border: 1px solid #6c7275;
+        border-radius: 6px;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .review-btn {
+          width: 200px;
+          height: 10%;
+          padding: 10px 20px;
+          border-radius: 15px;
+          border: 1px solid black;
+          background: black;
+          color: white;
+          font-size: 18px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        input {
+          background: transparent;
+          border: none;
+          outline: none;
+          flex: 1;
+          font-size: 22px;
         }
       }
-
-      .review__cards {
+      &__cards {
         display: flex;
         flex-direction: column;
-        gap: 20px;
-
+        gap: 40px;
         .review__card {
           display: flex;
+          align-items: center;
           gap: 20px;
-
-          &__image {
-            width: 60px;
-            height: 60px;
+          &__left {
+            width: 100px;
+            height: 100px;
             img {
-              width: 100%;
-              height: 100%;
-              border-radius: 50%;
+              width: 70px;
+              height: 70px;
               object-fit: cover;
+              border-radius: 50%;
             }
           }
 
-          &__info {
-            flex: 1;
-
-            h3 {
-              font-size: 18px;
-              margin-bottom: 5px;
-            }
-
-            .rating__comment {
+          &__right {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            .rating,
+            .rating__none {
               display: flex;
+              align-items: center;
               gap: 5px;
-              margin-bottom: 10px;
-
               img {
-                width: 16px;
-                height: 16px;
+                width: 20px;
+                height: 20px;
               }
-            }
-
-            p {
-              font-size: 14px;
-              color: #555;
             }
           }
         }
@@ -224,10 +262,15 @@
     margin-top: 30px;
     padding: 15px 40px;
     background: black;
+    width: 200px;
     color: white;
     border-radius: 5px;
     font-size: 18px;
     border: 1px solid black;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .counter-btns {
@@ -235,9 +278,18 @@
     align-items: center;
     gap: 10px;
     margin-top: 30px;
+    width: 200px;
+    span {
+      width: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
     button {
       padding: 10px 20px;
+      height: 50px;
       border-radius: 2px;
+      width: 70px;
       background: black;
       color: white;
       border: 1px solid black;
@@ -248,6 +300,49 @@
         background: #fff;
         color: black;
       }
+    }
+  }
+}
+.review-btn-media {
+  display: none;
+}
+
+.review__card__right__media {
+  display: none;
+}
+
+@media (max-width: 490px) {
+  .reviews__header {
+    .review-btn {
+      display: none !important;
+    }
+    .review-btn-media {
+      display: block;
+      background: transparent;
+      font-size: 16px;
+      border: none;
+    }
+  }
+  .rating__none {
+    img {
+      display: none !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+    }
+  }
+  .review__card__right__name,
+  .rating__none,
+  .review__card__left {
+    display: none !important;
+  }
+  .review__card__right__media {
+    display: flex;
+    gap: 10px;
+    img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
     }
   }
 }
@@ -293,7 +388,7 @@
   }
 }
 
-.single__page__join{
+.single__page__join {
   margin-bottom: -50px;
   margin-top: 50px;
 }

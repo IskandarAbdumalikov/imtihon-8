@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import { CiCreditCard1 } from "react-icons/ci";
 import { useSelector, useDispatch } from "react-redux";
@@ -14,11 +14,18 @@ const Checkout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const cartData = useSelector((state) => state.cart.value);
+  const orderValue = useSelector((state) => state.order.value);
+
+  useEffect(() => {
+    if (!orderValue || !cartData.length) {
+      navigate("/cart");
+    }
+  }, [orderValue, cartData.length]);
 
   if (!cartData.length) {
-    dispatch(removeAll());
-    navigate("/");
+    navigate("/cart");
   }
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
@@ -43,6 +50,7 @@ const Checkout = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
 
     let text = `Checkout Info %0A`;
     text += `First Name: ${firstName} %0A`;
@@ -272,7 +280,7 @@ const Checkout = () => {
                 <label htmlFor="expirationDate">EXPIRATION DATE</label>
                 <input
                   placeholder="MM/YY"
-                  type="text"
+                  type="date"
                   id="expirationDate"
                   maxLength={4}
                   minLength={4}
