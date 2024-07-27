@@ -50,10 +50,12 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+    max-width: 500px;
 
     .form-group {
       display: flex;
       flex-direction: column;
+      width: 100%;
 
       .form-label {
         font-size: 14px;
@@ -68,9 +70,9 @@
         border-radius: 4px;
         outline: none;
         background: #f8f8f8;
-        max-width: 500px;
         min-height: 50px;
         font-size: 18px;
+        width: 100%;
       }
     }
 
