@@ -41,7 +41,6 @@ const App = () => {
           <Route path="contact" element={<Contact />} />
           <Route path="blog" element={<Blog />} />
           <Route path="shop" element={<Shop />} />
-          <Route path="login" element={<Login />} />
         </Route>
         <Route path="/admin" element={<Admin />}>
           <Route path="/admin/productCreate" element={<ProductCreate />} />
@@ -49,6 +48,7 @@ const App = () => {
           <Route path="/admin/categoryCreate" element={<CategoryCreate />} />
           <Route path="/admin/categoryManage" element={<CategoryManage />} />
         </Route>
+        <Route path="login" element={<Login />} />
       </Routes>
       <ToastContainer />
     </>

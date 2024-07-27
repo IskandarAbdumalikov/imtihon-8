@@ -72,22 +72,24 @@ const Sidebar = () => {
             <span>Manage Category</span>
           </Link>
         </li>
+        <li className="sidebar__item">
+          <Link
+            className={`sidebar__home sidebar__link text-nowrap ${
+              isActive("/") ? "active" : ""
+            }`}
+            to={"/"}
+          >
+            <FaArrowAltCircleLeft />
+            <span>Home</span>
+          </Link>
+        </li>
+        <li className="sidebar__item">
+          <Link className="sidebar__home sidebar__link" onClick={handleLogOut}>
+            <RiLogoutBoxLine />
+            <span>Log out</span>
+          </Link>
+        </li>
       </ul>
-      <div style={{ display: "flex", flexDirection: "column", gap: 30 }}>
-        <Link
-          className={`sidebar__home text-nowrap ${
-            isActive("/") ? "active" : ""
-          }`}
-          to={"/"}
-        >
-          <FaArrowAltCircleLeft />
-          Home
-        </Link>
-        <Link className="sidebar__home" onClick={handleLogOut}>
-          <RiLogoutBoxLine />
-          Log out
-        </Link>
-      </div>
     </div>
   );
 };

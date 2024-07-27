@@ -6,6 +6,8 @@ import {
 } from "../../context/api/categoryApi";
 import "../admin/admin.scss";
 import EditModule from "./EditModule"; 
+import { MdDelete } from "react-icons/md";
+import { FaEdit } from "react-icons/fa";
 
 const CategoryManage = () => {
   const [showEdit, setShowEdit] = useState(false);
@@ -41,13 +43,13 @@ const CategoryManage = () => {
                 className="category-button delete"
                 onClick={() => deleteCategory(category.id)}
               >
-                Delete
+                <MdDelete />
               </button>
               <button
                 className="category-button edit"
                 onClick={() => handleEdit(category)}
               >
-                Edit
+                <FaEdit />
               </button>
             </div>
           </div>
