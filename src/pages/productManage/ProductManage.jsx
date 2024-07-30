@@ -8,7 +8,7 @@ import {
 import Products from "../../components/products/Products";
 import EditModule from "../../components/editModule/EditModule";
 import "../admin/admin.scss";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const ProductManage = () => {
@@ -27,6 +27,7 @@ const ProductManage = () => {
   } = useGetProductsQuery({ limit, page: 1, category });
   const [deleteProduct] = useDeleteProductMutation();
   const [updateProduct] = useUpdateProductMutation();
+
   useEffect(() => {
     if (!isLogin) {
       navigate("/login");
@@ -45,6 +46,10 @@ const ProductManage = () => {
 
   const handleDelete = async (productId) => {
     await deleteProduct(productId);
+  };
+
+  const handleUpdateImages = async (productId, newImages) => {
+    await updateProduct({ id: productId, body: { images: newImages } });
   };
 
   return (
@@ -70,6 +75,7 @@ const ProductManage = () => {
         isShowManaging={true}
         onDelete={handleDelete}
         onEdit={handleEdit}
+        onUpdateImages={handleUpdateImages}
       />
       {showEdit && (
         <EditModule

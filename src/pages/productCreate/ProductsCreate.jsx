@@ -3,7 +3,6 @@ import { useCreateProductMutation } from "../../context/api/productApi";
 import { useGetCategoriesQuery } from "../../context/api/categoryApi";
 import "../admin/admin.scss";
 import { FaStar } from "react-icons/fa";
-import LocalImages from "./LocalImages";
 import { useNavigate } from "react-router-dom";
 
 const initialState = {
@@ -21,29 +20,34 @@ const ProductCreate = () => {
   const { data: categoryData } = useGetCategoriesQuery();
   const [handleCreate] = useCreateProductMutation();
   const [productData, setProductData] = useState(initialState);
-  const [imageFiles, setImageFiles] = useState([]);
   let navigate = useNavigate();
 
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    if (name === "images" && files) {
-      setImageFiles(files);
-    } else {
-      setProductData({ ...productData, [name]: value });
-    }
+    const { name, value } = e.target;
+    setProductData({ ...productData, [name]: value });
+  };
+
+  const handleImagesChange = (e) => {
+    const { value } = e.target;
+    const imageUrls = value.split("\n").filter((url) => url.trim() !== "");
+    setProductData({ ...productData, images: imageUrls });
   };
 
   const handleCreateProduct = async (e) => {
     e.preventDefault();
-    const { title, description, price, oldPrice, category, rating, stock } =
-      productData;
-
-    const imageUrls = Array.from(imageFiles).map((file) =>
-      URL.createObjectURL(file)
-    );
+    const {
+      title,
+      description,
+      price,
+      oldPrice,
+      category,
+      rating,
+      stock,
+      images,
+    } = productData;
 
     try {
-      handleCreate({
+      await handleCreate({
         title,
         description,
         price: Number(price),
@@ -51,11 +55,10 @@ const ProductCreate = () => {
         category,
         rating: Number(rating),
         stock: Number(stock),
-        images: imageUrls,
+        images,
       });
 
       setProductData(initialState);
-      setImageFiles([]);
       navigate("/admin/productManage");
     } catch (error) {
       console.error("Error creating product:", error);
@@ -175,17 +178,27 @@ const ProductCreate = () => {
         </div>
         <div className="form-group">
           <label htmlFor="images" className="form-label">
-            Images (Select files)
+            Images (Input URLs)
           </label>
-          <input
-            type="file"
+          <textarea
             id="images"
             name="images"
-            onChange={handleChange}
+            value={productData.images.join("\n")}
+            onChange={handleImagesChange}
             className="form-input"
-            multiple
+            required
           />
-          <LocalImages files={imageFiles} />
+          {/* <div className="image-preview">
+            {productData.images.map((url, index) => (
+              <div key={index} className="image-preview-item">
+                <img
+                  src={url}
+                  alt={`Preview ${index}`}
+                  className="image-preview-img"
+                />
+              </div>
+            ))}
+          </div> */}
         </div>
         <button type="submit" className="form-button">
           Create Product

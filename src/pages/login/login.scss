@@ -4,14 +4,16 @@
   &__left,
   &__right {
     width: 50%;
+    padding-top: 80px;
   }
   &__left {
     display: flex;
     flex-direction: column;
     align-items: center;
+    
     gap: 30px;
     .login__left__logo {
-      width: 300px !important;
+      width: 150px !important;
     }
     .login__left__main-img {
       width: 100%;

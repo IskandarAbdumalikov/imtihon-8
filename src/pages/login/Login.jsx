@@ -32,7 +32,7 @@ const Login = () => {
     }
   };
   return (
-    <div className="huge__container login">
+    <div className="container login">
       <div className="login__left">
         <NavLink to={'/'}>
           <img width={200} className="login__left__logo" src={logo} alt="" />

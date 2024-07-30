@@ -2,7 +2,13 @@ import React, { memo, useState } from "react";
 import "./products.scss";
 import Loading from "../loading/Loading";
 import { Link } from "react-router-dom";
-import { FaHeart, FaRegHeart, FaCartArrowDown, FaEdit } from "react-icons/fa";
+import {
+  FaHeart,
+  FaRegHeart,
+  FaCartArrowDown,
+  FaEdit,
+  FaRegPlusSquare,
+} from "react-icons/fa";
 import star from "../../assets/products/star.svg";
 import halfStar from "../../assets/products/starHalf.svg";
 import starRegular from "../../assets/products/starRegular.svg";
@@ -15,7 +21,7 @@ import {
   remove,
 } from "../../context/slices/cartSlice";
 import { MdDelete } from "react-icons/md";
-import { Button, Modal, Box, Typography } from "@mui/material";
+import { Button, Modal, Box, Typography, TextField } from "@mui/material";
 
 const Products = ({
   data,
@@ -24,12 +30,14 @@ const Products = ({
   isShowManaging,
   onEdit,
   onDelete,
+  onUpdateImages,
 }) => {
   const wishlistData = useSelector((state) => state.wishlist.value);
   const cartData = useSelector((state) => state.cart.value);
 
   const [openModal, setOpenModal] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState(null);
+  const [newImages, setNewImages] = useState("");
 
   const dispatch = useDispatch();
 
@@ -41,23 +49,35 @@ const Products = ({
   const handleCloseModal = () => {
     setSelectedProductId(null);
     setOpenModal(false);
+    setNewImages("");
   };
 
-  const handleConfirmDelete = () => {
-    onDelete(selectedProductId);
-    handleCloseModal();
+  const handleUpdateImages = () => {
+    if (newImages) {
+      const imagesArray = newImages
+        .split("\n")
+        .filter((url) => url.trim() !== "");
+
+      const existingProduct = data.find(
+        (product) => product.id === selectedProductId
+      );
+      const combinedImages = [...existingProduct.images, ...imagesArray];
+
+      onUpdateImages(selectedProductId, combinedImages);
+      handleCloseModal();
+    }
   };
 
   const getRating = (rating) => {
     let res = [];
     for (let i = 0; i < Math.trunc(rating); i++) {
-      res.push(<img src={star} alt="" />);
+      res.push(<img src={star} alt="" key={`full-${i}`} />);
     }
     if (rating % 1 > 0.4) {
-      res.push(<img src={halfStar} alt="" />);
+      res.push(<img src={halfStar} alt="" key={`half`} />);
     }
     for (let i = Math.round(rating); i < 5; i++) {
-      res.push(<img src={starRegular} alt="" />);
+      res.push(<img src={starRegular} alt="" key={`empty-${i}`} />);
     }
     return res;
   };
@@ -149,6 +169,12 @@ const Products = ({
                           <FaEdit />
                         </button>
                         <button
+                          className="add__image"
+                          onClick={() => handleOpenModal(product.id)}
+                        >
+                          <FaRegPlusSquare />
+                        </button>
+                        <button
                           onClick={() => handleOpenModal(product.id)}
                           className="delete-btn"
                         >
@@ -158,97 +184,56 @@ const Products = ({
                     )}
                   </div>
                 </div>
-                <p>{product?.title}</p>
+                <p className="product__card__category">{product?.category}</p>
+                <Link to={`/products/${product.id}`}>
+                  <h4 className="product__card__title">{product?.title}</h4>
+                </Link>
                 <div className="price">
-                  <p>${product?.price}</p>
-                  <p>${product?.oldPrice}</p>
-                </div>
-              </div>
-              <div className="menu-btns__media">
-                <button onClick={() => dispatch(toggleHeart(product))}>
-                  {wishlistData.some((el) => el.id === product.id) ? (
-                    <FaHeart color="crimson" />
-                  ) : (
-                    <FaRegHeart />
-                  )}
-                </button>
-                {cartData.some((el) => el.id === product.id) ? (
-                  <div className="products__card__add-to-cart">
-                    {cartData.find((el) => el.id === product.id).amount ===
-                    1 ? (
-                      <button
-                        onClick={() =>
-                          dispatch(
-                            remove(cartData.find((el) => el.id === product.id))
-                          )
-                        }
-                      >
-                        -
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() =>
-                          dispatch(
-                            decreaseAmount(
-                              cartData.find((el) => el.id === product.id)
-                            )
-                          )
-                        }
-                        className="px-4 py-2 bg-gray-200 rounded"
-                      >
-                        -
-                      </button>
-                    )}
-                    <span className="text-2xl">
-                      {cartData.find((el) => el.id === product.id).amount}
+                  <p className="product__card__price">
+                    ${product?.price.toFixed(2)}
+                  </p>
+                  {product?.oldPrice && (
+                    <span className="product__card__oldPrice">
+                      ${product?.oldPrice.toFixed(2)}
                     </span>
-                    <button
-                      onClick={() =>
-                        dispatch(
-                          increaseAmount(
-                            cartData.filter((el) => el.id === product.id)[0]
-                          )
-                        )
-                      }
-                      className="px-4 py-2 bg-gray-200 rounded"
-                    >
-                      +
-                    </button>
-                  </div>
-                ) : (
-                  <button onClick={() => dispatch(add(product))}>
-                    <FaCartArrowDown />
-                  </button>
-                )}
+                  )}
+                </div>
               </div>
             </div>
           ))
         )}
       </div>
-      <div
-        style={{ marginTop: 50 }}
-        className="products__card__pagination"
-      ></div>
       <Modal open={openModal} onClose={handleCloseModal}>
-        <Box sx={{ ...style, width: 400 }}>
+        <Box sx={{ ...styleBox, width: 400 }} className="modal__container">
           <Typography variant="h6" component="h2">
-            Confirm Delete
+            Update Product Images
           </Typography>
-          <Typography sx={{ mt: 2 }}>
-            Are you sure you want to delete this product?
-          </Typography>
-          <Box sx={{ mt: 3, display: "flex", justifyContent: "space-between" }}>
+          <TextField
+            multiline
+            rows={4}
+            variant="outlined"
+            placeholder="Enter image URLs (one per line)"
+            value={newImages}
+            onChange={(e) => setNewImages(e.target.value)}
+            fullWidth
+            margin="normal"
+          />
+          <div style={{ display: "flex", gap: 20, alignItems: "center" }}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleUpdateImages}
+            >
+              Update
+            </Button>
             <Button
               variant="contained"
               color="error"
-              onClick={handleConfirmDelete}
+              onClick={handleCloseModal}
             >
-              Yes
+              Cancel
             </Button>
-            <Button variant="contained" onClick={handleCloseModal}>
-              No
-            </Button>
-          </Box>
+          </div>
         </Box>
       </Modal>
     </section>
@@ -257,7 +242,7 @@ const Products = ({
 
 export default memo(Products);
 
-const style = {
+const styleBox = {
   position: "absolute",
   top: "50%",
   left: "50%",

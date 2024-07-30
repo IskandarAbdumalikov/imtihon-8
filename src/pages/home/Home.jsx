@@ -14,6 +14,7 @@ import { articlesData } from "../../../data";
 
 import Join from "../../components/join/Join";
 import SupportCards from "../../components/supportCards/SupportCards";
+import { FaArrowRightLong } from "react-icons/fa6";
 
 const Home = () => {
   let [category, setCategory] = useState("");
@@ -70,7 +71,7 @@ const Home = () => {
           <div className="hero__bottom__card" key={item?.id}>
             <div className="hero__bottom__card__content">
               <p>{item?.title}</p>
-              <Link>Shop Now</Link>
+              <Link to={'/shop'}>Shop Now</Link>
             </div>
             <img src={item?.images[0]} alt="" />
           </div>
@@ -85,7 +86,9 @@ const Home = () => {
             New <br /> Arrivals
           </h2>
 
-          <Link to="/products">More Products</Link>
+          <Link to="/shop">
+            <p>More Products</p> <FaArrowRightLong />
+          </Link>
         </div>
         <ul>
           <li
@@ -107,7 +110,13 @@ const Home = () => {
           ))}
         </ul>
 
-        <div style={{display:"flex",alignItems:"center",flexDirection:"column"}}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "column",
+          }}
+        >
           <Products
             data={data}
             isFetching={isFetching}
