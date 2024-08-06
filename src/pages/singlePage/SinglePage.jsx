@@ -37,6 +37,7 @@ const SinglePage = () => {
   const selectedData = cartData.find(
     (product) => product.id === singleData?.id
   );
+  
 
   console.log(singleData);
 
